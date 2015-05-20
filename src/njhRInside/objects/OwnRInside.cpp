@@ -10,15 +10,15 @@
 namespace njhRInside {
 
 
-std::unique_ptr<RInside> ownRInside::rSession_ = std::unique_ptr<RInside>();
+std::unique_ptr<RInside> OwnRInside::rSession_ = std::unique_ptr<RInside>();
 
-ownRInside::ownRInside() {
+OwnRInside::OwnRInside() {
   if (!rSession_) {
     rSession_.reset(new RInside());
   }
 }
 
-ownRInside::~ownRInside() {
+OwnRInside::~OwnRInside() {
   if (rSession_) {
     rSession_->parseEvalQ("rm(list = ls())");
 
@@ -31,7 +31,7 @@ ownRInside::~ownRInside() {
     // rSession_.reset();
   }
 }
-void ownRInside::multipleParseEvalQ(const VecStr& cmds) {
+void OwnRInside::multipleParseEvalQ(const VecStr& cmds) {
   auto& r = get();
   for (const auto& cmd : cmds) {
     r.parseEvalQ(cmd);
@@ -46,7 +46,7 @@ bool endsWith(const std::string& a, const std::string& b) {
   return false;
 }
 
-void ownRInside::openPdfDevice(const std::string & pdfFilename, double pageWidth, double pageHeight){
+void OwnRInside::openPdfDevice(const std::string & pdfFilename, double pageWidth, double pageHeight){
   std::stringstream txt;
   std::string widthStr = std::to_string(pageWidth);
   std::string heightStr = std::to_string(pageHeight);
@@ -58,7 +58,7 @@ void ownRInside::openPdfDevice(const std::string & pdfFilename, double pageWidth
   auto& r = get();
   r.parseEvalQ(txt.str());
 }
-void ownRInside::closeCurrentDevice(){
+void OwnRInside::closeCurrentDevice(){
   std::string txt = "dev.off();";
   auto& r = get();
 
