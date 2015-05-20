@@ -26,3 +26,21 @@
 *.exe
 *.out
 *.app
+
+
+
+compfile.mk
+*.Rapp*
+*.Rhistory*
+
+external/*
+bin/*
+share/*
+
+# Python 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+
+
