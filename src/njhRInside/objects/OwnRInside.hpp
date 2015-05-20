@@ -5,10 +5,10 @@
  *      Author: nickhathaway
  */
 
-
-namespace njhRInside {
 #include "njhRInside/common.h"
 #include <RInside.h>
+
+namespace njhRInside {
 
 class OwnRInside {
  private:
