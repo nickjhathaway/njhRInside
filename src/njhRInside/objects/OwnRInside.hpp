@@ -7,7 +7,7 @@
 
 
 namespace njhRInside {
-#include "njhRinside/common.h"
+#include "njhRInside/common.h"
 #include <RInside.h>
 
 class OwnRInside {
