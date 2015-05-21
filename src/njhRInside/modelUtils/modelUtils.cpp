@@ -6,6 +6,7 @@
  */
 
 #include "modelUtils.hpp"
+#include "njhRInside/objects/OwnRInside.hpp"
 
 namespace njhRInside {
 
