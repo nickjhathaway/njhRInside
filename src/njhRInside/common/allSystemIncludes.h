@@ -13,6 +13,7 @@
 #include <cstddef>
 #include <utility>
 #include <map>
+#include <unordered_map>
 #include <algorithm>
 #include <memory>
 
