@@ -66,4 +66,16 @@ void OwnRInside::closeCurrentDevice(){
 }
 
 
+void OwnRInside::installLib(const std::string& lib) {
+
+  std::string txt = "suppressMessages(library(" + lib + "))";
+  auto& r = get();
+
+  r.parseEvalQ(txt);  // load library, no return value
+}
+
+
+
+
+
 } /* namespace njhRInside */

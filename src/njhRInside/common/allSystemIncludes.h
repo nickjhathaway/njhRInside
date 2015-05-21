@@ -15,3 +15,5 @@
 #include <map>
 #include <algorithm>
 #include <memory>
+
+#include <cppitertools/range.hpp>

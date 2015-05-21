@@ -5,3 +5,4 @@
 
 #include "njhRInside/common.h"
 #include "njhRInside/objects.h"
+#include "njhRInside/modelUtils.h"
