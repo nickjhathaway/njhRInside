@@ -10,6 +10,11 @@
 namespace njhRInside {
 
 
+inline double roundDecPlaces(double num, int decPlaces) {
+  double rounder = pow(10, decPlaces);
+  return (floor(num * rounder + 0.5) / rounder);
+}
+
 std::unordered_map<std::string, std::vector<double>> getModelQualError(
     const std::unordered_map<std::string, std::vector<double>>& data,
     uint32_t qualStart, uint32_t qualStop, double qualStep,
@@ -22,7 +27,7 @@ std::unordered_map<std::string, std::vector<double>> getModelQualError(
     const std::vector<double>& qualVec, const std::vector<double>& errorVec,
     const std::vector<double>& weightVec, uint32_t qualStart, uint32_t qualStop,
     double qualStep, const std::string& model) {
-  ownRInside ownSession;
+  OwnRInside ownSession;
 
   Rcpp::DataFrame inData = Rcpp::DataFrame::create(
       Rcpp::Named("qual") = qualVec, Rcpp::Named("error") = errorVec,
