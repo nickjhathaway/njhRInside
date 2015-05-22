@@ -51,6 +51,8 @@ class Paths():
         self.paths["bibseqdev"] = self.__bibseqDev()
         self.paths["bibcppdev"] = self.__bibcppDev()
         self.paths["seekdeepdev"] = self.__SeekDeepDev()
+        self.paths["seqserver"] = self.__seqserver()
+        self.paths["njhrinside"] = self.__njhRInside()
         self.paths["catch"] = self.__catch()
 
     def path(self, name):
@@ -150,6 +152,16 @@ class Paths():
         url = "https://github.com/bailey-lab/SeekDeepPrivate.git"
         name = "SeekDeepDev"
         return self.__package_dirs(url, name)
+    
+    def __seqserver(self):
+        url = "https://github.com/nickjhathaway/seqServer.git"
+        name = "seqserver"
+        return self.__package_dirs(url, name)
+    
+    def __njhRInside(self):
+        url = "https://github.com/nickjhathaway/njhRInside.git"
+        name = "njhRInside"
+        return self.__package_dirs(url, name)
 
     def __bibcppDev(self):
         url = "https://github.com/umass-bib/bibcppDev.git"
@@ -236,6 +248,8 @@ class Setup:
                        "bibseqdev": self.bibseqDev,
                        "seekdeepdev": self.SeekDeepDev,
                        "bibcppdev": self.bibcppDev,
+                       "seqserver": self.seqserver,
+                       "njhrinside": self.njhRInside,
                        "jsoncpp": self.jsoncpp,
                        "pstreams": self.pstreams
                        }
@@ -501,6 +515,14 @@ make COMPFILE=compfile.mk -j {num_cores}
     
     def SeekDeepDev(self):
         i = self.__path('seekdeepdev')
+        self.__buildNjhProject(i)
+        
+    def seqserver(self):
+        i = self.__path('seqserver')
+        self.__buildNjhProject(i)
+        
+    def njhRInside(self):
+        i = self.__path('njhrinside')
         self.__buildNjhProject(i)
     
     def jsoncpp(self):

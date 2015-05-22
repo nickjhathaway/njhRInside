@@ -10,6 +10,8 @@ def parse_args():
     parser.add_argument('-externalLibDir', type=str, nargs=1)
     parser.add_argument('-CC', type=str, nargs=1)
     parser.add_argument('-CXX', type=str, nargs=1)
+    parser.add_argument('-libs', type=str)
+    parser.add_argument('-name', type=str)
     return parser.parse_args()
 
 def main():
@@ -23,10 +25,10 @@ def main():
     
     if(args.prefix):
         prefix = args.prefix[0];
-        cmd = "setUpScripts/generateCompFile.py -prefix "  + prefix + " -installName njhRInside -outFilename compfile.mk -externalLoc " + external + " -CC " + CC + "  -CXX " + CXX + " -neededLibs cppitertools,r -outname njhRInside "
+        cmd = "setUpScripts/generateCompFile.py -prefix "  + prefix + " -installName " + args.name + " -outFilename compfile.mk -externalLoc " + external + " -CC " + CC + "  -CXX " + CXX + " -neededLibs " + args.libs + " -outname " + args.name + " "
 
     else:
-        cmd = "setUpScripts/generateCompFile.py "  + " -installName njhRInside -outFilename compfile.mk -externalLoc " + external + " -CC " + CC + "  -CXX " + CXX  + "  -neededLibs cppitertools,r -outname njhRInside "
+        cmd = "setUpScripts/generateCompFile.py "  + " -installName " + args.name + " -outFilename compfile.mk -externalLoc " + external + " -CC " + CC + "  -CXX " + CXX  + "  -neededLibs " + args.libs + " -outname " + args.name + " "
 
     
     Utils.run(cmd)
