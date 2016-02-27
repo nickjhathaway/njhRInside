@@ -57,7 +57,7 @@ class Paths():
         self.paths["seqserver"] = self.__seqserver()
         self.paths["njhrinside"] = self.__njhRInside()
         self.paths["twobit"] = self.__twobit()
-        self.paths["sharedMutex"] = self.__sharedMutex()
+        self.paths["sharedmutex"] = self.__sharedMutex()
         self.paths["dlib"] = self.__dlib()
         self.paths["libsvm"] = self.__libsvm()
         self.paths["mongoc"] = self.__mongoc()
