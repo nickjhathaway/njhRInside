@@ -17,6 +17,18 @@ from color_text import ColorText as CT
 BuildPaths = namedtuple("BuildPaths", 'url build_dir build_sub_dir local_dir')
 
 
+def fixDyLibOnMac(libDir):
+        files = os.listdir(libDir)
+        for file in files:
+            if os.path.isfile(file) and str(file).endswith(".dylib"):
+                try:
+                    cmd = "install_name_tool -id {full_libpath} {full_libpath}".format(full_libpath = os.path.abspath(file))
+                    Utils.run(cmd)
+                except Exception,e:
+                    print (e)
+                    print ("Failed to fix dylib for {path}".format(path = os.path.abspath(file)))
+
+
 def runAndCapture(cmd):
     # print CT.boldRed("before process")
     # from http://stackoverflow.com/a/4418193
@@ -1006,6 +1018,10 @@ class Setup:
             self.__buildFromFile(bPaths, cmd)
         else:
             raise Exception("Unrecognized lib type " + str(pack.libType_))
+        if Utils.isMac():
+            libPath = os.path.join(bPaths.local_dir, "lib")
+            if(os.path.exists(libPath)):
+                fixDyLibOnMac(libPath)
         
     def __defaultBibBuild(self, package, version):
         if "develop" == version:
