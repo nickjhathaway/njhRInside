@@ -84,7 +84,7 @@ class CPPLibPackageVersionR():
             self.rExecutable_ = os.path.join(self.rInstallLoc_, "R.framework/Resources/bin/R")
         else:
             self.rExecutable_ = os.path.join(self.rInstallLoc_, "bin/R")
-        self.rHome_ = runAndCapture(self.rExecutable_ + " RHOME")
+        self.rHome_ = str(runAndCapture(self.rExecutable_ + " RHOME")).strip()
     
     def getIncludeFlags(self, localPath):
         self.setExecutableLoc(localPath)
