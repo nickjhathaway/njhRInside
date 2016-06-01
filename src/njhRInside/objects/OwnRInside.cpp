@@ -31,6 +31,7 @@ OwnRInside::~OwnRInside() {
     // rSession_.reset();
   }
 }
+
 void OwnRInside::multipleParseEvalQ(const VecStr& cmds) {
   auto& r = get();
   for (const auto& cmd : cmds) {
@@ -46,32 +47,43 @@ bool endsWith(const std::string& a, const std::string& b) {
   return false;
 }
 
-void OwnRInside::openPdfDevice(const std::string & pdfFilename, double pageWidth, double pageHeight){
-  std::stringstream txt;
-  std::string widthStr = std::to_string(pageWidth);
-  std::string heightStr = std::to_string(pageHeight);
-	if(endsWith(pdfFilename, ".pdf")){
-		txt << "pdf(\"" << pdfFilename << "\", width=" << widthStr << ", height=" << heightStr << ");";
-	}else{
-		txt << "pdf(\"" << pdfFilename << ".pdf" << "\", width=" << widthStr << ", height=" << heightStr << ");";
+void OwnRInside::openPdfDevice(std::string pdfFilename, double pageWidth,
+		double pageHeight) {
+	std::stringstream txt;
+	std::string widthStr = std::to_string(pageWidth);
+	std::string heightStr = std::to_string(pageHeight);
+	if (!endsWith(pdfFilename, ".pdf")) {
+		pdfFilename.append(".pdf");
 	}
-  auto& r = get();
-  r.parseEvalQ(txt.str());
+	txt << "pdf(\"" << pdfFilename << "\", width=" << widthStr << ", height="
+			<< heightStr << ", useDingbats = F);";
+	auto& r = get();
+	r.parseEvalQ(txt.str());
 }
+
 void OwnRInside::closeCurrentDevice(){
-  std::string txt = "dev.off();";
   auto& r = get();
+  r.parseEvalQ("dev.off();");
+}
 
-  r.parseEvalQ(txt);
+RInside& OwnRInside::get() {
+	return *rSession_;
 }
 
 
-void OwnRInside::installLib(const std::string& lib) {
+void OwnRInside::installLib(const std::string & lib, uint32_t numThreads) {
 
-  std::string txt = "suppressMessages(library(" + lib + "))";
+	std::stringstream libCmd;
+	libCmd << "install.packages(c(\"" << lib << "\"), repos=\"http://cran.us.r-project.org\",";
+	libCmd << " Ncpus = " << numThreads << ", lib =.libPaths()[length(.libPaths()  )])";
   auto& r = get();
+  r.parseEvalQ(libCmd.str());
+}
 
-  r.parseEvalQ(txt);  // load library, no return value
+
+void OwnRInside::loadLib(const std::string& lib) {
+	auto& r = get();
+	r.parseEvalQ("suppressMessages(library(" + lib + "))");  // load library, no return value
 }
 
 

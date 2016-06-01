@@ -19,12 +19,16 @@ class OwnRInside {
   OwnRInside();
   ~OwnRInside();
 
-  RInside& get() { return *rSession_; }
-  // installing libraries
-  void installLib(const std::string& lib);
-  void openPdfDevice(const std::string & pdfFilename, double width, double height);
+  RInside& get();
+  // installing/loading libraries
+  void installLib(const std::string & lib, uint32_t numThreads);
+  void loadLib(const std::string& lib);
+  // dealing with graphing devices
+  void openPdfDevice(std::string pdfFilename, double width, double height);
   void closeCurrentDevice();
   // multiple commands
   void multipleParseEvalQ(const VecStr& cmds);
 };
+
+
 } /* namespace njhRInside */
